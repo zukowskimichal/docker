@@ -1,6 +1,7 @@
 os: linux
 dist: xenial
 language: generic
+sudo: required
 
 services:
   - docker
@@ -12,10 +13,10 @@ script:
   - docker run -e CI=true zukowskimichal/docker-test npm run test
 #after tests execute sucessfully
 after_sucess:
-  - docker build -t zukowskimichal/complex-nginx -f ./complex/nginx ./complex/nginx
-  - docker build -t zukowskimichal/complex-server -f ./complex/server ./complex/server
-  - docker build -t zukowskimichal/complex-client -f ./complex/client ./complex/client
-  - docker build -t zukowskimichal/complex-worker -f ./complex/worker ./complex/worker
+  - docker build -t zukowskimichal/complex-nginx -f ./complex/nginx/Dockerfile ./complex/nginx
+  - docker build -t zukowskimichal/complex-server -f ./complex/server/Dockerfile ./complex/server
+  - docker build -t zukowskimichal/complex-client -f ./complex/client/Dockerfile ./complex/client
+  - docker build -t zukowskimichal/complex-worker -f ./complex/worker/Dockerfile ./complex/worker
 
 #log in to docker CLI
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
@@ -25,16 +26,3 @@ after_sucess:
   - docker push zukowskimichal/complex-server
   - docker push zukowskimichal/complex-client
   - docker push zukowskimichal/complex-worker
-
-
-# deploy:
-#   provider: elasticbeanstalk
-#   region: "eu-central-1"
-#   app: "docker-react"
-#   env: "DockerReact-env"
-#   bucket_name: "elasticbeanstalk-eu-central-1-316472426292"
-#   bucket_path: "docker-react"
-#   on:
-#     branch: main
-#   access_key_id: $AWS_ACCESS_KEY
-#   secret_access_key: $AWS_SECRET_KEY
