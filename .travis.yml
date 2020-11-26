@@ -12,7 +12,7 @@ before_install:
 script:
   - docker run -e CI=true zukowskimichal/docker-test npm run test
 #after tests execute sucessfully
-after_sucess:
+after_success:
   - docker build -t zukowskimichal/complex-nginx -f ./complex/nginx/Dockerfile ./complex/nginx
   - docker build -t zukowskimichal/complex-server -f ./complex/server/Dockerfile ./complex/server
   - docker build -t zukowskimichal/complex-client -f ./complex/client/Dockerfile ./complex/client
