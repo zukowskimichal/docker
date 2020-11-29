@@ -5,19 +5,22 @@
       "name": "client",
       "image": "zukowskimichal/complex-client",
       "hostname": "client",
-      "essential": false
+      "essential": false,
+      "memory":
     },
     {
       "name": "server",
       "image": "zukowskimichal/complex-server",
       "hostname": "api",
-      "essential": false
+      "essential": false,
+      "memory":
     },
     {
       "name": "worker",
       "image": "zukowskimichal/complex-worker",
       "hostname": "worker",
-      "essential": false
+      "essential": false,
+      "memory":
     },
     {
       "name": "nginx",
@@ -29,7 +32,8 @@
           "containerPort": 80
         }
       ],
-      "links": ["client", "server"]
+      "links": ["client", "server"],
+      "memory": 
     }
   ]
 }
